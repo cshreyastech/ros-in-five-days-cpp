@@ -1,0 +1,10 @@
+<launch>
+    <!-- My Package launch file -->
+    <!-- node pkg="service_client_pkg" type="service_client" name="ObiWan8"  output="screen" -->
+
+  <include file="$(find iri_wam_reproduce_trajectory)/launch/start_service.launch"/>
+
+  <!-- Here will go our C++ code that calls the execute_trajectory service -->
+  <node pkg ="service_client_pkg" type="execute_trajectory_node" name="execute_trajectory_node" output="screen">
+  </node>
+</launch>

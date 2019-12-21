@@ -1,0 +1,5 @@
+<launch>
+    <!-- Start Service Server for move_bb8_in_circle service -->
+    <node pkg="services_quiz" type="move_bb8_in_square_custom_server" name="move_bb8_in_square_custom_server"  output="screen">
+    </node>
+</launch>

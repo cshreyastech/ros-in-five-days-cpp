@@ -1,0 +1,5 @@
+<launch>
+    <!-- My Package launch file -->
+    <node pkg="service_client_pkg" type="service_client" name="ObiWan8"  output="screen">
+    </node>
+</launch>
