@@ -1,0 +1,5 @@
+<launch>
+    <!-- My Package launch file -->
+    <node pkg="action_server_pkg" type="move_drone_square" name="ObiWan12"  output="screen">
+    </node>
+</launch>

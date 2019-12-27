@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(service_client_pkg)
+project(logs_test)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -9,8 +9,6 @@ project(service_client_pkg)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   roscpp
-  trajectory_by_name_srv
-  roslib
 )
 
 ## System dependencies are found with CMake's conventions
@@ -104,24 +102,16 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES service_client_pkg
-#  CATKIN_DEPENDS roscpp trajectory_by_name_srv
+#  LIBRARIES logs_test
+#  CATKIN_DEPENDS roscpp
 #  DEPENDS system_lib
 )
 
-add_executable(service_client src/simple_service_client.cpp)
-add_dependencies(service_client ${service_client_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(service_client
+add_executable(log_demo src/logger_example.cpp)
+add_dependencies(log_demo ${log_demo_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(log_demo
    ${catkin_LIBRARIES}
  )
-
-
-add_executable(execute_trajectory_node src/execute_trajectory_service_client.cpp)
-add_dependencies(execute_trajectory_node ${execute_trajectory_node_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(execute_trajectory_node
-   ${catkin_LIBRARIES}
- )
-
 
 ###########
 ## Build ##
@@ -136,7 +126,7 @@ include_directories(
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/service_client_pkg.cpp
+#   src/${PROJECT_NAME}/logs_test.cpp
 # )
 
 ## Add cmake target dependencies of the library
@@ -147,7 +137,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/service_client_pkg_node.cpp)
+# add_executable(${PROJECT_NAME}_node src/logs_test_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -211,7 +201,7 @@ include_directories(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_service_client_pkg.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_logs_test.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()

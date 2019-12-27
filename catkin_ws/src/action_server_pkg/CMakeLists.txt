@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(service_client_pkg)
+project(action_server_pkg)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -8,9 +8,9 @@ project(service_client_pkg)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+  actionlib
+  actionlib_msgs
   roscpp
-  trajectory_by_name_srv
-  roslib
 )
 
 ## System dependencies are found with CMake's conventions
@@ -70,7 +70,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate added messages and services with any dependencies listed here
 # generate_messages(
 #   DEPENDENCIES
-#   std_msgs  # Or other packages containing msgs
+#   actionlib_msgs
 # )
 
 ################################################
@@ -104,24 +104,21 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES service_client_pkg
-#  CATKIN_DEPENDS roscpp trajectory_by_name_srv
+#  LIBRARIES action_server_pkg
+#  CATKIN_DEPENDS actionlib actionlib_msgs roscpp
 #  DEPENDS system_lib
 )
+# add_executable(fibonacci_as src/fibonacci_action_server.cpp)
+# add_dependencies(fibonacci_as ${fibonacci_as_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+# target_link_libraries(fibonacci_as
+#    ${catkin_LIBRARIES}
+#  )
 
-add_executable(service_client src/simple_service_client.cpp)
-add_dependencies(service_client ${service_client_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(service_client
+add_executable(move_drone_square src/adrone_action_server.cpp)
+add_dependencies(move_drone_square ${move_drone_square_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(move_drone_square
    ${catkin_LIBRARIES}
  )
-
-
-add_executable(execute_trajectory_node src/execute_trajectory_service_client.cpp)
-add_dependencies(execute_trajectory_node ${execute_trajectory_node_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(execute_trajectory_node
-   ${catkin_LIBRARIES}
- )
-
 
 ###########
 ## Build ##
@@ -136,7 +133,7 @@ include_directories(
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/service_client_pkg.cpp
+#   src/${PROJECT_NAME}/action_server_pkg.cpp
 # )
 
 ## Add cmake target dependencies of the library
@@ -147,7 +144,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/service_client_pkg_node.cpp)
+# add_executable(${PROJECT_NAME}_node src/action_server_pkg_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -211,7 +208,7 @@ include_directories(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_service_client_pkg.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_action_server_pkg.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()

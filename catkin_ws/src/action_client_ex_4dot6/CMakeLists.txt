@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(service_client_pkg)
+project(action_client_ex_4dot6)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -8,9 +8,8 @@ project(service_client_pkg)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+  actionlib
   roscpp
-  trajectory_by_name_srv
-  roslib
 )
 
 ## System dependencies are found with CMake's conventions
@@ -104,25 +103,17 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES service_client_pkg
-#  CATKIN_DEPENDS roscpp trajectory_by_name_srv
+#  LIBRARIES action_client_ex_4dot6
+#  CATKIN_DEPENDS actionlib roscpp
 #  DEPENDS system_lib
 )
 
-add_executable(service_client src/simple_service_client.cpp)
-add_dependencies(service_client ${service_client_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(service_client
+add_executable(ardrone_action_client src/ardrone_action_client.cpp)
+add_dependencies(ardrone_action_client ${ardrone_action_client_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(ardrone_action_client
    ${catkin_LIBRARIES}
  )
-
-
-add_executable(execute_trajectory_node src/execute_trajectory_service_client.cpp)
-add_dependencies(execute_trajectory_node ${execute_trajectory_node_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(execute_trajectory_node
-   ${catkin_LIBRARIES}
- )
-
-
+ 
 ###########
 ## Build ##
 ###########
@@ -136,7 +127,7 @@ include_directories(
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/service_client_pkg.cpp
+#   src/${PROJECT_NAME}/action_client_ex_4dot6.cpp
 # )
 
 ## Add cmake target dependencies of the library
@@ -147,7 +138,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/service_client_pkg_node.cpp)
+# add_executable(${PROJECT_NAME}_node src/action_client_ex_4dot6_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -211,7 +202,7 @@ include_directories(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_service_client_pkg.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_action_client_ex_4dot6.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()

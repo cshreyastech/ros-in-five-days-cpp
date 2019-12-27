@@ -1,0 +1,5 @@
+<launch>
+    <!-- My Package launch file -->
+    <node pkg="action_client_pkg" type="cancel_goal_test" name="ObiWan14"  output="screen">
+    </node>
+</launch>
