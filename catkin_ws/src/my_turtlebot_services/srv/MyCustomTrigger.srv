@@ -1,0 +1,5 @@
+# request, Empty because no data is needed
+---
+#response
+bool movement_successfull
+string extra_data

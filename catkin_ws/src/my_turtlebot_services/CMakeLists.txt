@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(my_custom_srv_msg_pkg)
+project(my_turtlebot_services)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -11,7 +11,6 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   std_msgs
   message_generation
-  #my_custom_srv_msg_pkg
 )
 
 ## System dependencies are found with CMake's conventions
@@ -57,7 +56,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate services in the 'srv' folder
 add_service_files(
    FILES
-    MyCustomServiceMessage.srv
+    MyCustomTrigger.srv
     #BB8CustomServiceMessage.srv
 #   Service2.srv
  )
@@ -105,43 +104,19 @@ generate_messages(
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES my_custom_srv_msg_pkg
-  CATKIN_DEPENDS roscpp
-#  DEPENDS system_lib
+      CATKIN_DEPENDS
+      roscpp
+      #std_msgs
+      #message_runtime
 )
 
-# add_executable(bb8_move_in_circle_service_server src/bb8_move_in_circle_service_server.cpp)
-# add_dependencies(bb8_move_in_circle_service_server ${bb8_move_in_circle_service_server_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-# target_link_libraries(bb8_move_in_circle_service_server
-#    ${catkin_LIBRARIES}
-#  )
+add_executable(move_turtle_bot_in_maze_custom_server src/turtlebot_move_custom_service_server.cpp)
+target_link_libraries(move_turtle_bot_in_maze_custom_server ${catkin_LIBRARIES})
+# add_dependencies(move_turtle_bot_in_maze_custom_server ${move_turtle_bot_in_maze_custom_server_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(move_turtle_bot_in_maze_custom_server ${catkin_EXPORTED_TARGETS})
+add_dependencies(${move_turtle_bot_in_maze_custom_server_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
-# add_executable(bb8_move_in_circle_service_client src/bb8_move_in_circle_service_client.cpp)
-# add_dependencies(bb8_move_in_circle_service_client ${bb8_move_in_circle_service_client_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-# target_link_libraries(bb8_move_in_circle_service_client
-#    ${catkin_LIBRARIES}
-#  )
-
-add_executable(bb8_move_custom_service_server src/bb8_move_custom_service_server.cpp)
-target_link_libraries(bb8_move_custom_service_server
-   ${catkin_LIBRARIES}
- )
-# add_dependencies(bb8_move_custom_service_server
-#   ${bb8_move_custom_service_server_EXPORTED_TARGETS}
-#   ${catkin_EXPORTED_TARGETS})
-
-add_dependencies(bb8_move_custom_service_server
-  ${catkin_EXPORTED_TARGETS})
-
-add_dependencies(${bb8_move_custom_service_server_EXPORTED_TARGETS}
-  ${catkin_EXPORTED_TARGETS})
-
-# add_executable(bb8_move_custom_service_client src/bb8_move_custom_service_client.cpp)
-# add_dependencies(bb8_move_custom_service_client ${bb8_move_custom_service_client_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-# target_link_libraries(bb8_move_custom_service_client
-#    ${catkin_LIBRARIES}
-#  )
+#add_dependencies(move_turtle_bot_in_maze_custom_server move_turtle_bot_in_maze_custom_server_generate_messages_cpp)
 
 ###########
 ## Build ##
@@ -156,7 +131,7 @@ include_directories(
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/my_custom_srv_msg_pkg.cpp
+#   src/${PROJECT_NAME}/my_turtlebot_services.cpp
 # )
 
 ## Add cmake target dependencies of the library
@@ -167,7 +142,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/my_custom_srv_msg_pkg_node.cpp)
+# add_executable(${PROJECT_NAME}_node src/my_turtlebot_services_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -231,7 +206,7 @@ include_directories(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_my_custom_srv_msg_pkg.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_my_turtlebot_services.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
